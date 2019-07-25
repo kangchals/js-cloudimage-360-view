@@ -435,6 +435,7 @@ class CI360Viewer {
 
   addMagnifier() {
     const magnifyIcon = document.createElement('div');
+    magnifyIcon.className = 'magnify-icon';
 
     setMagnifyIconStyles(magnifyIcon, this.fullScreen);
 
@@ -456,7 +457,7 @@ class CI360Viewer {
 
     this.glass = document.createElement('div');
     this.container.style.overflow = 'hidden';
-    magnify(this.container, src, this.glass, this.magnifier || 3);
+    magnify(this.container, src, this.glass, this.magnifier || 3, this.scaleLevel || 1, );
   }
 
   closeMagnifier() {
@@ -737,7 +738,7 @@ class CI360Viewer {
     let {
       folder, filename, amount, draggable = true, swipeable = true, keys, bottomCircle, bottomCircleOffset, boxShadow,
       autoplay, speed, autoplayReverse, fullScreen, magnifier, ratio, responsive, ciToken, ciSize, ciOperation,
-      ciFilters, lazyload, lazySelector, spinReverse, dragSpeed, stopAtEdges, controlReverse
+      ciFilters, lazyload, lazySelector, spinReverse, dragSpeed, stopAtEdges, controlReverse, scaleLevel
     } = get360ViewProps(container);
 
     this.addInnerBox();
@@ -754,6 +755,7 @@ class CI360Viewer {
     this.reversed = autoplayReverse;
     this.fullScreen = fullScreen;
     this.magnifier = !this.isMobile && magnifier ? magnifier : false;
+    this.scaleLevel = !this.isMobile && scaleLevel ? scaleLevel : false;
     this.lazyload = lazyload;
     this.ratio = ratio;
     this.spinReverse = spinReverse;

@@ -12,6 +12,8 @@ const get360ViewProps = (image) => ({
   fullScreen: isTrue(image, 'full-screen'),
   magnifier: ((attr(image, 'magnifier') !== null) || (attr(image, 'data-magnifier') !== null)) &&
   parseInt(attr(image, 'magnifier') || attr(image, 'data-magnifier'), 10),
+  scaleLevel: ((attr(image, 'scale-level') !== null) || (attr(image, 'data-scale-level') !== null)) &&
+  parseInt(attr(image, 'scale-level') || attr(image, 'data-scale-level'), 10),
   bottomCircleOffset: parseInt(attr(image, 'bottom-circle-offset') || attr(image, 'data-bottom-circle-offset') || 5, 10),
   ratio: parseFloat(attr(image, 'ratio') || attr(image, 'data-ratio') || 0) || false,
   responsive: isTrue(image, 'responsive'),
@@ -140,8 +142,9 @@ const setCloseFullScreenViewStyles = (closeFullScreenIcon) => {
   closeFullScreenIcon.style.background = `url('https://scaleflex.ultrafast.io/https://scaleflex.airstore.io/filerobot/js-cloudimage-360-view/cross.svg') 50% 50% / cover no-repeat`;
 };
 
-const magnify = (container, src, glass, zoom) => {
+const magnify = (container, src, glass, zoomLevel, scale) => {
   let w, h, bw;
+  let zoom = zoomLevel * scale
   glass.setAttribute("class", "img-magnifier-glass");
   container.prepend(glass);
 
@@ -199,8 +202,7 @@ const magnify = (container, src, glass, zoom) => {
 
     glass.style.left = (x - w) + "px";
     glass.style.top = (y - h) + "px";
-
-    glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+    glass.style.backgroundPosition = "-" + ((x * zoom ) - w + bw) + "px -" + ((y * zoom ) - h + bw) + "px";
   }
 
   function getCursorPos(e) {
